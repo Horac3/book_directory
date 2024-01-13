@@ -15,3 +15,6 @@ class Book(MethodView):
     @blp.response(200, BookSchema)
     def get(self):
         return "Books"
+    
+    def post(self, books):
+        db.session.add(books)

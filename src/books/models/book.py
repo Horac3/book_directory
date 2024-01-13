@@ -13,6 +13,5 @@ class BookModel(db.Model):
     publication_date = db.Column(db.String(255))
     year = db.Column(db.DateTime)
     isbn = db.Column(db.Interger, unique=True, nullable=False)
-    
     author = db.relationship("AuthorModel", back_populates="books")
     publisher = db.relationship("PublisherModel", back_populates="books")

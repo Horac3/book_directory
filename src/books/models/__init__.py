@@ -1,3 +1,3 @@
-from models.author import AuthorModel
-from models.book import BookModel
-from models.publisher import PublisherModel
+from .author import AuthorModel
+from .book import BookModel
+from .publisher import PublisherModel

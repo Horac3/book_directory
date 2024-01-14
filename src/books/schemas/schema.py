@@ -1,3 +1,4 @@
+from dbm import dumb
 from marshmallow import Schema, fields
 
 class PlainBookSchema(Schema):
@@ -8,23 +9,23 @@ class PlainBookSchema(Schema):
     
 class PlainAuthorSchema(Schema):
     id = fields.Int(dump_only=True)
-    author_name = fields.Str()
+    author_name = fields.Str(required=True)
     
 class PlainPublisherSchema(Schema):
     id = fields.Int(dump_only=True)
-    publisher_name = fields.Str()
+    publisher_name = fields.Str(required=True)
     
 
 class BookSchema(PlainBookSchema):
     author_id = fields.Int(required=True, load_only=True)
     publisher_id = fields.Int(required=True, load_only=True)
     author = fields.Nested(PlainAuthorSchema(), dump_only=True)
-    publisher = fields.Nested(PlainPublisherSchema(), dump_onlt=True)
+    publisher = fields.Nested(PlainPublisherSchema(), dump_only=True)
     
 
-class AuthorSchema(PlainAuthorSchema):
-    books = fields.List(fields.Nested(PlainBookSchema()), dump_only=True)
+# class AuthorSchema(PlainAuthorSchema):
+#     books = fields.List(fields.Nested(PlainBookSchema()), dump_only=True)
     
 
-class PublisherSchema(PlainPublisherSchema):
-    books = fields.List(fields.Nested(PlainBookSchema()), dump_only=True)
+# class PublisherSchema(PlainPublisherSchema):
+#     books = fields.List(fields.Nested(PlainBookSchema()), dump_only=True)

@@ -5,7 +5,7 @@ from marshmallow import Schema
 from sqlalchemy.exc import SQLAlchemyError
 
 from db import db
-
+from src.books.models.book import BookModel
 from src.books.schemas.schema import BookSchema
 
 blp = Blueprint("Books", "books", description = "Book Endpoints")
@@ -16,5 +16,9 @@ class Book(MethodView):
     def get(self):
         return "Books"
     
-    def post(self, books):
+    @blp.arguments(BookSchema)
+    @blp.response(201, BookSchema)
+    def post(self, books_data):
+        books = BookModel(**books_data)
         db.session.add(books)
+        db.session.commit()

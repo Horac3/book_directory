@@ -1,2 +1,2 @@
-.flaskenv
-/instance/data.db
+flaskenv
+instance/data.db

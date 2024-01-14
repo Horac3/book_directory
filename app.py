@@ -5,6 +5,8 @@ from flask_smorest import Api
 
 from db import db
 from src.books.resources.book import blp as BookBluePrint
+from src.books.resources.authors import blp as AuthorBluePrint
+from src.books.resources.publishers import blp as PublisherBluePrint
 
 def create_app(db_url= None):
     app = Flask(__name__)
@@ -26,6 +28,8 @@ def create_app(db_url= None):
         db.create_all()
 
     api.register_blueprint(BookBluePrint)
+    api.register_blueprint(AuthorBluePrint)
+    api.register_blueprint(PublisherBluePrint)
     
 
     return app

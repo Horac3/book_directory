@@ -10,7 +10,10 @@ class BookModel(db.Model):
     book_name = db.Column(db.String(255), unique = False, nullable = False)
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"))
     publisher_id = db.Column(db.Integer, db.ForeignKey("publishers.id"))
+    author_name = db.Column(db.String(255), unique = False, nullable = True)
+    publisher_name = db.Column(db.String(255), unique = False, nullable = True)
     publication_date = db.Column(db.String(255))
     isbn = db.Column(db.String(255), unique = False)
+    
     author = db.relationship("AuthorModel", back_populates="books")
     publisher = db.relationship("PublisherModel", back_populates="books")

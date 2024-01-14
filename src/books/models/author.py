@@ -8,3 +8,7 @@ class AuthorModel(db.Model):
     books = db.relationship(
         "BookModel", back_populates="author", lazy="dynamic", cascade="all, delete"
     )
+    
+    def __init__(self, author_name):
+        self.author_name = author_name
+        

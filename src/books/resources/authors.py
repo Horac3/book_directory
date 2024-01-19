@@ -12,25 +12,20 @@ from src.books.models.publisher import PublisherModel
 from src.books.models.book import BookModel
 from src.books.schemas.schema import AuthorSchema, BookSchema
 
-blp = Blueprint("Authors", "author", description = "Author Endpoints")
+
+blp = Blueprint("Authors", "author", description="Author Endpoints")
 
 @blp.route("/author")
 class Author(MethodView):
+    """
+    Author class is a Flask view that handles HTTP requests related to authors.
+    It is part of a Flask-Smorest blueprint named "Authors" and provides endpoints for retrieving author data.
+    """
+
     @blp.response(200, AuthorSchema(many=True))
     def get(self):
+        """
+        Handles the GET request for retrieving all authors.
+        Returns a list of all AuthorModel instances in the database.
+        """
         return AuthorModel.query.all()
-    
-    # @blp.arguments(BookSchema)
-    # @blp.response(201, BookSchema(many=True))
-    # def post(self, books_data):
-    #     books = BookModel(**books_data)
-        
-    #     if books.author_name or books.publisher_name:
-    #         print(f"Author name {books.author_name} Book Publisher {books.publisher_name}")
-    #         author = AuthorModel(author_name=books.author_name)
-    #         publisher = PublisherModel(publisher_name=books.publisher_name)
-    #         db.session.add(author)
-    #         db.session.add(publisher)
-    #     db.session.add(books)
-    #     db.session.commit()
-    #     return BookModel.query.all()

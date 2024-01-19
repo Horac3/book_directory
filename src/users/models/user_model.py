@@ -3,7 +3,7 @@ from db import db
 class UserModel(db.Model):
     __tablename__ = "Users"
     
-    id = db.Column(db.Interger, autoincrement=True, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     username =db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False)
     

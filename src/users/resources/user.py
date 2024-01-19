@@ -1,5 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from blocklist import BLOCKLIST
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -42,7 +43,7 @@ class UserLogin(MethodView):
         user = UserModel.query.filter(
             UserModel.username == user_data["username"]
         ).first()
-
+        
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)

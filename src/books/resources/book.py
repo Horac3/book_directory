@@ -40,7 +40,6 @@ class Book(MethodView):
             print(f"Author {author}")
             if not author:
                 author = AuthorModel(author_name=author_name)
-                print(f"Author {author}")
                 db.session.add(author)
                 db.session.commit()
             book_data["author_id"] = author.id
@@ -49,7 +48,6 @@ class Book(MethodView):
             publisher = PublisherModel.query.filter_by(publisher_name=publisher_name).first()
             if not publisher:
                 publisher = PublisherModel(publisher_name=publisher_name)
-                print(f"Publisher {publisher}")
                 db.session.add(publisher)
                 db.session.commit()
             book_data["publisher_id"] = publisher.id

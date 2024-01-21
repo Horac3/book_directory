@@ -12,6 +12,7 @@ from passlib.hash import pbkdf2_sha256
 
 from db import db
 from src.users.models.user_model import UserModel
+
 from src.users.schemas.user_scehma import UserSchema
 
 

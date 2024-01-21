@@ -1,6 +1,7 @@
 import imp
 import re
 from flask.views import MethodView
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from marshmallow import Schema
 from sqlalchemy.exc import SQLAlchemyError
@@ -18,13 +19,14 @@ blp = Blueprint("books", "books", url_prefix="/books")
 
 @blp.route("")
 class Book(MethodView):
+    @jwt_required()
     @blp.response(200, BookSchema(many=True))
     def get(self):
         """
         Retrieves all books from the database and returns them as a JSON response.
         """
         return BookModel.query.all()
-    
+    @jwt_required()
     @blp.arguments(BookSchema)
     @blp.response(201, BookSchema)
     def post(self, book_data):

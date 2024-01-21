@@ -1,6 +1,7 @@
 import imp
 import re
 from flask.views import MethodView
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from marshmallow import Schema
 from sqlalchemy.exc import SQLAlchemyError
@@ -16,7 +17,9 @@ blp = Blueprint("Publisher", "publishers", description = "Publisher Endpoints")
 
 @blp.route("/publisher")
 class PlainPublisherSchema(MethodView):
+
     @blp.response(200, PublisherSchema(many=True))
+    @jwt_required()
     def get(self):
         return PublisherModel.query.all()
     

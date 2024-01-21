@@ -1,6 +1,7 @@
 import imp
 import re
 from flask.views import MethodView
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from marshmallow import Schema
 from sqlalchemy.exc import SQLAlchemyError
@@ -21,7 +22,7 @@ class Author(MethodView):
     Author class is a Flask view that handles HTTP requests related to authors.
     It is part of a Flask-Smorest blueprint named "Authors" and provides endpoints for retrieving author data.
     """
-
+    @jwt_required()
     @blp.response(200, AuthorSchema(many=True))
     def get(self):
         """

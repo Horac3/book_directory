@@ -2,9 +2,10 @@ from operator import imod
 import os
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager
+from flask_migrate import migrate
 from flask_smorest import Api
 from blocklist import BLOCKLIST
-
+from flask_migrate import Migrate
 from db import db
 from src.books.resources.book import blp as BookBluePrint
 from src.books.resources.authors import blp as AuthorBluePrint
@@ -25,8 +26,8 @@ def create_app(db_url= None):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["PROPAGATE_EXCEPTIONS"] = True
     db.init_app(app)
+    migrate = Migrate(app, db)
     api = Api(app)
-
     app.config["JWT_SECRET_KEY"] = "horace"
     jwt = JWTManager(app)
     
